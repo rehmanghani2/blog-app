@@ -13,7 +13,7 @@ dotenv.config();
 // Create Express app and http server
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 5000;
+
 
 
 // Middlewares
@@ -37,7 +37,10 @@ app.use('/api/post', postRouter);
 app.use('/api/comment', commentRouter);
 app.use('/api/ai', aiRouter);
 
-server.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
+if(process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT || 5000;
+    server.listen(PORT, ()=> console.log("Server is running on PORT: " , PORT));
+}
 
 export default server;
 
