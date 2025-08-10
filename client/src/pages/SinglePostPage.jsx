@@ -126,8 +126,8 @@ const SinglePostPage = () => {
             <FaCalendarAlt />{new Date(post.createdAt).toLocaleDateString()}
         </span>
         {/* POST IMAGE */}
-        {post.image && (
-            <img src={`http://localhost:5000${post.image}`} alt={post.title} className='w-full h-[400px] object-cover rounded-lg mb-6 shadow' />
+        {post.image && (// http://localhost:5000
+            <img src={`${import.meta.env.VITE_BACKEND_URL}${post.image}`} alt={post.title} className='w-full h-[400px] object-cover rounded-lg mb-6 shadow' />
         )}
         {/* POST BODY */}
         <div className='prose max-w-none mb-10'
