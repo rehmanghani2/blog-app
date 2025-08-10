@@ -14,13 +14,22 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-
+const allowedOrigins = [
+    "http://localhost:5173", // local dev
+     "https://blog-app-five-omega-30.vercel.app" // on vercel frontend deploying
+]
 
 // Middlewares
 app.use(cors(
     {
-        origin: "http://localhost:5173",
-        credentials: true,
+        origin: function (origin, callback) {
+            if(!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("CORS not allowed for this origin: ", origin));
+            }
+        },
+        credentials: true
     }
 ));
 app.use(express.json());
